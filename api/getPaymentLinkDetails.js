@@ -21,7 +21,7 @@ export default async function handler(req, res) {
 
     try {
         const cfResponse = await fetch(
-            `https://sandbox.cashfree.com/pg/links/${encodeURIComponent(link_id)}`,
+            `https://api.cashfree.com/pg/links/${encodeURIComponent(link_id)}`,
             {
                 method: "GET",
                 headers: {

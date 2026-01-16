@@ -45,7 +45,7 @@ export default async function handler(req, res) {
     try {
         const payload = req.body;
 
-        const cfResponse = await fetch("https://sandbox.cashfree.com/pg/links", {
+        const cfResponse = await fetch("https://api.cashfree.com/pg/links", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
