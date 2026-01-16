@@ -1,4 +1,13 @@
+
+
+const addCorsHeaders = (res, origin = "*") => {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+    res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type,Authorization");
+};
 export default async function handler(req, res) {
+    addCorsHeaders(res, req.headers.origin || "*");
+
     // Only allow GET
     if (req.method !== "GET") {
         return res.status(405).json({ error: "Only GET allowed" });
