@@ -43,29 +43,24 @@ export default async function handler(req, res) {
     }
 
     try {
-        // Your actual logic here, e.g., call Cashfree
-        const payload = req.body && JSON.parse(req.body);
+        const payload = req.body;
 
-        // Example: forward to Cashfree
-        const cfResponse = await fetch(
-            "https://sandbox.cashfree.com/pg/links",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "x-client-id": process.env.CASHFREE_CLIENT_ID,
-                    "x-client-secret": process.env.CASHFREE_SECRET,
-                    "x-api-version": "2025-01-01"
-                },
-                body: JSON.stringify(payload),
-            }
-        );
+        const cfResponse = await fetch("https://sandbox.cashfree.com/pg/links", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "x-client-id": process.env.CASHFREE_CLIENT_ID,
+                "x-client-secret": process.env.CASHFREE_SECRET,
+                "x-api-version": "2025-01-01"
+            },
+            body: JSON.stringify(payload),
+        });
+
         const data = await cfResponse.json();
-
         return res.status(200).json(data);
 
     } catch (error) {
-        console.error(error);
+        console.error("Error calling Cashfree:", error);
         return res.status(500).json({ error: "Server error" });
     }
 }
