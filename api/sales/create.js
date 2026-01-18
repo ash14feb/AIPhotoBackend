@@ -1,5 +1,6 @@
 const { addCorsHeaders, handleCorsPreflight } = require('../../utils/cors');
 const { query } = require('../../lib/db');
+const { validateSalesData } = require('../../utils/validation');
 
 module.exports = async function handler(req, res) {
     // Handle CORS
@@ -14,24 +15,31 @@ module.exports = async function handler(req, res) {
     }
 
     try {
-        const { ThemeName, Amount, PhotoURL, DateTime } = req.body;
+        const salesData = req.body;
 
-        // Basic validation
-        if (!ThemeName || !Amount || !PhotoURL) {
+        // Validate input
+        const { error, value } = validateSalesData(salesData);
+
+        if (error) {
             addCorsHeaders(res, req.headers.origin || "*");
             return res.status(400).json({
                 success: false,
-                error: 'ThemeName, Amount, and PhotoURL are required'
+                error: 'Validation failed',
+                details: error.details.map(detail => detail.message)
             });
         }
 
+        // Prepare data for insertion
+        const { ThemeName, Amount, PhotoURL, OriginalImageURL, DateTime } = value;
+
         const result = await query(
-            `INSERT INTO PhotoAISales (ThemeName, Amount, PhotoURL, DateTime) 
-             VALUES (?, ?, ?, ?)`,
+            `INSERT INTO PhotoAISales (ThemeName, Amount, PhotoURL, OriginalImageURL, DateTime) 
+             VALUES (?, ?, ?, ?, ?)`,
             [
                 ThemeName,
-                parseFloat(Amount),
+                Amount,
                 PhotoURL,
+                OriginalImageURL || null, // Store as NULL if empty
                 DateTime || new Date().toISOString().slice(0, 19).replace('T', ' ')
             ]
         );
