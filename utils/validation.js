@@ -11,15 +11,14 @@ export const salesSchema = Joi.object({
             'string.max': 'Theme name must be less than 255 characters'
         }),
 
-    //Amount: Joi.number()
-    //    .positive()
-    //    .precision(2)
-    //    .required()
-    //    .messages({
-    //        'number.base': 'Amount must be a number',
-    //        'number.positive': 'Amount must be positive',
-    //        'any.required': 'Amount is required'
-    //    }),
+    Amount: Joi.number()
+        .positive()
+        .precision(2)
+        .required()
+        .messages({
+            'number.base': 'Amount must be a number',
+            'any.required': 'Amount is required'
+        }),
 
     PhotoURL: Joi.string()
         .uri()
