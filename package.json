@@ -1,3 +1,19 @@
+//{
+//  "name": "aiphotobackend",
+//  "version": "1.0.0",
+//  "description": "",
+//  "main": "index.js",
+//  "scripts": {
+//    "test": "echo \"Error: no test specified\" && exit 1"
+//  },
+//  "keywords": [],
+//  "author": "",
+//  "license": "ISC",
+//  "type": "commonjs",
+//  "dependencies": {
+//    "node-fetch": "^3.3.2"
+//  }
+//}
 {
   "name": "aiphotobackend",
   "version": "1.0.0",
@@ -11,6 +27,9 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "node-fetch": "^3.3.2"
+    "node-fetch": "^3.3.2",
+    "mysql2": "^3.6.0",
+    "cors": "^2.8.5",
+    "joi": "^17.11.0"
   }
 }
