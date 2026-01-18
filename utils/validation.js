@@ -12,8 +12,6 @@ export const salesSchema = Joi.object({
         }),
 
     Amount: Joi.number()
-        .positive()
-        .precision(2)
         .required()
         .messages({
             'number.base': 'Amount must be a number',
